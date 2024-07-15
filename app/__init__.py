@@ -9,6 +9,8 @@ def create_app(config):
         title="Todo List Backend API",
     )
     app.config.from_object(config)
+    from app.api import todo_list_bp
+    app.register_blueprint(todo_list_bp)
     app.json.sort_keys = False
     return app
 
