@@ -10,8 +10,7 @@ from app.utility.time_processor import get_local_time
 class Todo(Base):
     __tablename__ = 'todo'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    # user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=False, comment="使用者ID")
-    user_id: Mapped[int] = mapped_column(Integer, nullable=False, comment="使用者ID")
+    user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=False, comment="使用者ID")
     title: Mapped[str] = mapped_column(String(512), nullable=False, comment="待辦事項標題")
     should_alert: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, comment="是否需要提醒")
     scheduled_time: Mapped[datetime] = mapped_column(DateTime, nullable=False, comment="預定時間")
@@ -25,7 +24,7 @@ class Todo(Base):
         DateTime, nullable=False, default=get_local_time, comment="創建時間", server_default=func.now()
     )
 
-    # user = relationship('User', back_populates='todo_lists', uselist=False)
+    user = relationship('User', back_populates='todos', uselist=False)
 
     def to_dict(self, exclude_fields=None):
         result = {

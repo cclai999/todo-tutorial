@@ -1,6 +1,9 @@
 from apiflask import APIFlask
+from flask_praetorian import Praetorian
 
-from app.database.mariadb import init_engine
+from app.database.mariadb import init_engine, db_session
+
+guard = Praetorian()
 
 
 def create_app(config):
@@ -13,9 +16,19 @@ def create_app(config):
     app.config.from_object(config)
     init_engine(config.DATABASE_URI)
 
-    from app.api import todo_list_bp
-    app.register_blueprint(todo_list_bp)
+    from app.models import User
+    guard.init_app(app, User)
+
+    from app.api import blueprint_list
+    for bp in blueprint_list:
+        app.register_blueprint(bp)
+
     app.json.sort_keys = False
+
+    @app.teardown_appcontext
+    def shutdown_session(exception=None):
+        db_session.remove()
+
     return app
 
 
