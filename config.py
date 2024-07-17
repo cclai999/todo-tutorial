@@ -28,12 +28,15 @@ class BaseConfig:
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
-    SECRET_KEY = b"\xa1\xfbFx\x99S\x96\xb2e\xea~9G\x00\x8f\xaa7k\xef'\xcc\xff\xae\xf3\xda\x8fb@\xe7c"
+#   SECRET_KEY = b"\xa1\xfbFx\x99S\x96\xb2e\xea~9G\x00\x8f\xaa7k\xef'\xcc\xff\xae\xf3\xda\x8fb@\xe7c"
+    db_path = BASE_DIR / "todo.db"
+    DATABASE_URI = f"sqlite:////{db_path}"
+    ENGINE_OPTIONS = {}
 
 
 class TestingConfig(BaseConfig):
     TESTING = True
-    SECRET_KEY = b'c\xee^\xee\x1e\x8b\xa7S\xb1R\xd6`\x12\xc7RU\x88$\xabc\xb7\xc5\xb9\xf7'
+#    SECRET_KEY = b'c\xee^\xee\x1e\x8b\xa7S\xb1R\xd6`\x12\xc7RU\x88$\xabc\xb7\xc5\xb9\xf7'
 
 
 class ProductionConfig(BaseConfig):
@@ -48,6 +51,7 @@ CONFIG_MAPPER = {
 
 
 def get_config():
-    if name := envs.get("APP_MODE",None) not in CONFIG_MAPPER:
+    global envs
+    if (name := envs.get("APP_MODE", None)) not in CONFIG_MAPPER:
         raise Exception(f"無法找到指定的配置：{name}")
     return CONFIG_MAPPER[envs.get("APP_MODE")]

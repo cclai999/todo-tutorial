@@ -1,3 +1,5 @@
 APIFlask
 python-dotenv
 python-dateutil
+pymysql
+sqlalchemy
