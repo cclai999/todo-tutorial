@@ -12,3 +12,8 @@
 ### v0.3
   - 新增 ORM model of Todo
   - 修改 api '/todo_list/all' to access todos from DB
+
+### v0.4
+  - 新增 BaseOrmRepository (套用 singleton pattern)
+  - 新增 TodoRepository (套用 repository pattern)
+  - 修改 api '/todo_list/all' 改用 TodoRepository 來查詢資料
