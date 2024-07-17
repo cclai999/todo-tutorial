@@ -8,3 +8,7 @@
   - 建立 domain model 'TodoItem'
   - 加入 api blueprint 'todo_list_bp'
   - 加入 api  '/todo_list/all', return all todo items by user_id
+
+### v0.3
+  - 新增 ORM model of Todo
+  - 修改 api '/todo_list/all' to access todos from DB
