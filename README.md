@@ -23,3 +23,10 @@
   - 修改 Todo ORM model 加入 user_id 的 ForeignKey 資訊
   - 利用 flask_praetorian 套件來實作 JWT 認證機制
   - 在create_app() 利用 @app.teardown_appcontext 註用 shutdown_session(), 在其中 remove db_session
+  - [Flask app 的生命週期](https://flask.palletsprojects.com/en/latest/lifecycle/#how-a-request-is-handled)
+  - [Scope Session 與網頁服務](https://docs.sqlalchemy.org/en/20/orm/contextual.html#using-thread-local-scope-with-web-applications)
+
+### v0.6
+  - Error Handling 的處理機制, [APLFlask 官方文件](https://zh.apiflask.com/error-handling/)
+  - 新增 AppException Class, 註冊 app.errorhandler, app.error_processor
+  - HTTPError demo

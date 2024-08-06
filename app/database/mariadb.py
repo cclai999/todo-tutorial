@@ -4,7 +4,7 @@ from typing import Union, Tuple
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session, Session, declarative_base
 
-# from app.exc.exceptions import DatabaseOperationError
+from app.exc.exceptions import DatabaseOperationError
 # from app.utility.logger import app_logger
 
 engine = None
@@ -38,8 +38,7 @@ def write_into_database(use_flush=False, new_records=None):
         # app_logger.critical(f"DB Error: {e}")
         print(f"DB Error: {e}")
         db_session.rollback()
-        # raise DatabaseOperationError(message="Database Error.", exc_val=e)
-        raise Exception("Database Error.")
+        raise DatabaseOperationError(message="Database Error.", exc_val=e)
 
 
 def pagination(query, page, per_page) -> Tuple[list, int, int]:
